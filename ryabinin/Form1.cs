@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ryabinin
 {
@@ -43,5 +44,50 @@ namespace ryabinin
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // создаем новую объект формы для изменения данных
+            Form3 frm = new Form3();
+            // Находим объект, который выбрал пользователь (текущий)
+            Priсelist rl = (Priсelist)priсelistBindingSource.Current;
+            // передаем данные в форму
+            frm.db = db;
+            frm.rl = rl;
+            // Показываем форму в диалоговом режиме
+            DialogResult dr = frm.ShowDialog();
+            // если измененные данные сохранены в БД, то таблицу обновим
+            if (dr == DialogResult.OK)
+            {
+                priсelistBindingSource.DataSource = db.Priсelist.ToList();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // находим объект для записи, которую выбрал пользователь
+            Priсelist rl = (Priсelist)priсelistBindingSource.Current;
+            // показываем диалоговое окно с кнопками Yes и No
+            DialogResult dr = MessageBox.Show(
+            " Вы действительно хотите удалить роль -" +rl.ID.ToString(),
+" Удаление роли", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // если пользователь нажал кнопку «Да», то удаляем данные из БД
+            if (dr == DialogResult.Yes)
+            {
+                // удаление записи из базы данных
+                db.Priсelist.Remove(rl);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                priсelistBindingSource.DataSource = db.Priсelist.ToList();
+            }
+        }
     }
-}
+    }
+

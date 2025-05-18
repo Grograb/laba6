@@ -26,8 +26,8 @@ namespace ryabinin
         {
             {
                 // проверяем, что все требуемые данные введены
-                if (textBox1.Text == ""|| textBox2.Text == "")
-{
+                if (textBox1.Text == "" || textBox2.Text == "")
+                {
                     MessageBox.Show(" Нужно ввести все требуемые данные!");
                     return;
                 }
@@ -36,7 +36,7 @@ namespace ryabinin
                 bool b = int.TryParse(textBox1.Text, out id);
                 if (b == false)
                 {
-                    MessageBox.Show("Неверный формат ID - "+textBox1.Text);
+                    MessageBox.Show("Неверный формат ID - " + textBox1.Text);
                     return;
                 }
                 int price;
@@ -53,7 +53,7 @@ namespace ryabinin
                 rl.ID = id;
                 rl.Name = textBox2.Text;
                 rl.Color = textBox3.Text;
-                rl.Price =price;
+                rl.Price = price;
                 // добавляем новый объект к коллекции
                 db.Priсelist.Add(rl);
                 try
@@ -74,6 +74,7 @@ namespace ryabinin
         {
 
         }
+
     }
-    }
+}
 
