@@ -23,5 +23,25 @@ namespace ryabinin
             // передаем промежуточному объекту данные из модели
             priсelistBindingSource.DataSource = db.Priсelist.ToList();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // создаем новый объект формы для добавления данных
+            Form2 frm = new Form2();
+            // передаем в новую форму объект модели DB
+            frm.db = db;
+            // показываем форму в диалоговом режиме
+            DialogResult dr = frm.ShowDialog();
+            if (dr == DialogResult.OK)
+            { // если данные были добавлены к БД, то обновляем содержание
+              // промежуточного объекта!
+                priсelistBindingSource.DataSource = db.Priсelist.ToList();
+            }
+        }
+
+        private void priсelistBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
